@@ -14,8 +14,8 @@
 
 
 <h1 align="center">
-    <img src="./public/mock1.png" style="width: 500px; border-radius:10px " >
     <img src="./public/mock2.png" style="width: 500px; border-radius:10px " >
+    <img src="./public/mock1.png" style="width: 500px; border-radius:10px " >
     <img src="./public/mock3.png" style="width: 500px; border-radius:10px " >
     <img src="./public/mock4.png" style="width: 500px; border-radius:10px " >
     <img src="./public/mock5.png" style="width: 500px; border-radius:10px " >
