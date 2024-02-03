@@ -1,95 +1,78 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client"
+
+import { doLogin } from "@/services/Web3Service";
+import Head from "next/head";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+  const { push } = useRouter();
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+  const [message, setMessage] = useState("")
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
+	function btnLoginClick() {
+    doLogin()
+    .then(account => push("/vote"))
+    .catch(err => {
+      console.error(err)
+      setMessage(err.message)
+    })
+	}
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  );
+	return (
+		<>
+			<Head>
+				<title>Webbb3 | Login</title>
+				<meta charSet="utf-8"></meta>
+				<meta
+					name="viewport"
+					content="width=device-width, initial-scale=1"
+				></meta>
+			</Head>
+			<div className="container col-xxl-8 px-4 py-5">
+				<div className="row flex-lg-row-reverse align-items-center g-5 py-5">
+					<div className="col-10 col-sm-8 col-lg-6 ">
+						<img
+							src="https://telaviva.com.br/wp-content/uploads/2021/05/bbb-robo.jpg"
+							className="d-block mx-lg-auto img-fluid rounded"
+							width="700"
+							height="500"
+						/>
+					</div>
+					<div className="col-lg-6">
+						<h1 className="display-2 fw-bold  lh-1 mb-5">
+							Webbb3
+						</h1>
+						<p className="lead">Votacao on-chain do BBB</p>
+						<p className="lead mb-3">
+							Autentique-se com sua carteira e deixe o seu voto
+							para o proximo paredao.
+						</p>
+						<div className="d-grid gap-2 d-md-flex justify-content-md-start">
+							<button
+								onClick={btnLoginClick}
+								className="btn btn-primary btn-lg px-4 me-md-2"
+							>
+								<img
+									src="metamask.svg"
+									width="64"
+									className="me-3"
+								/>
+									Conectar com a Metamask
+								
+							</button>
+						</div>
+            <p className="message">{message}</p>
+					</div>
+				</div>
+        <footer className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+          <p className="col-md-4 mb-0 text-body-secondary">&copy; 2024 Webbb3, Inc</p>
+          <ul className="nav col-md-4 justify-content-end">
+            <li className="nav-item"><a href="/about" className="nav-link px-2 text-body-secondary">About</a></li>
+          </ul>
+        </footer>
+			</div>
+		</>
+	);
 }
